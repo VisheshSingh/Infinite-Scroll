@@ -36,6 +36,21 @@ async function showPosts() {
 
 showPosts();
 
+function filterBlogs(e) {
+  const term = e.target.value;
+  const posts = document.querySelectorAll('.post');
+  posts.forEach(post => {
+    const title = document.querySelector('.post-title').innerText;
+    const body = document.querySelector('.post-body').innerText;
+
+    if (title.indexOf(term) > -1 || body.indexOf(term) > -1) {
+      post.style.display = 'flex';
+    } else {
+      post.style.display = 'none';
+    }
+  });
+}
+
 function showLoading() {
   loader.classList.add('show');
 
@@ -55,3 +70,5 @@ window.addEventListener('scroll', () => {
     showLoading();
   }
 });
+
+filter.addEventListener('input', filterBlogs);
