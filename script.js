@@ -3,7 +3,7 @@ const loader = document.querySelector('.loader');
 const filter = document.getElementById('filter');
 
 const limit = 3;
-const page = 1;
+let page = 1;
 
 // FETCH POSTS
 async function fetchPosts() {
@@ -35,3 +35,23 @@ async function showPosts() {
 }
 
 showPosts();
+
+function showLoading() {
+  loader.classList.add('show');
+
+  setTimeout(() => {
+    loader.classList.remove('show');
+
+    setTimeout(() => {
+      page++;
+      showPosts();
+    }, 300);
+  }, 1000);
+}
+
+window.addEventListener('scroll', () => {
+  const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+  if (scrollTop + clientHeight >= scrollHeight - 5) {
+    showLoading();
+  }
+});
